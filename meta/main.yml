@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  role_name: kubernetes_prepare
+  author: jweber
+  description: Prepares a system for Kubernetes deployment
+  license: MIT
+  min_ansible_version: '2.9'
+
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+    - name: EL
+      versions:
+        - '8'
+        - '9'
+
+  galaxy_tags:
+    - kubernetes
+    - k8s
+    - system
+    - preparation
+    - networking
+
+dependencies: []
