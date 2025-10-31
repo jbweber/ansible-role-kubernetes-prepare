@@ -27,10 +27,17 @@
     - net.bridge.bridge-nf-call-ip6tables
     - net.ipv4.ip_forward
 
+- name: Check if zram service exists
+  ansible.builtin.stat:
+    path: /usr/lib/systemd/system/systemd-zram-setup@.service
+  register: zram_service
+
 - name: Ensure zram is stopped
   ansible.builtin.systemd:
     name: systemd-zram-setup@zram0
     state: stopped
+  when: zram_service.stat.exists
+  ignore_errors: true
 
 - name: Ensure zram is disabled
   ansible.builtin.file:
@@ -39,6 +46,7 @@
     modification_time: preserve
     state: touch
     mode: '0644'
+  when: zram_service.stat.exists
 
 - name: Install k8s packages
   ansible.builtin.dnf:
